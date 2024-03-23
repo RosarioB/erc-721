@@ -50,14 +50,22 @@ describe("FootballPlayers", () => {
         await footballPlayers.safeMint(await owner.getAddress());
         await footballPlayers["safeTransferFrom(address,address,uint256)"](owner, addr1, 0);
         expect(await footballPlayers.ownerOf(0)).to.equal(await addr1.getAddress());
-      });
+    });
   
-      it("Should revert when trying to transfer a token that is not owned", async () => {
-        await footballPlayers.safeMint(await owner.getAddress());
-        await expect(
-          footballPlayers.connect(addr1)["safeTransferFrom(address,address,uint256)"] (addr1, addr2, 0)
-        ).to.be.revertedWithCustomError(footballPlayers, "ERC721InsufficientApproval");
-      });
-  });  
+    it("Should revert when trying to transfer a token that is not owned", async () => {
+      await footballPlayers.safeMint(await owner.getAddress());
+      await expect(
+        footballPlayers.connect(addr1)["safeTransferFrom(address,address,uint256)"] (addr1, addr2, 0)
+      ).to.be.revertedWithCustomError(footballPlayers, "ERC721InsufficientApproval");
+    });
+
+    it("Should not send tokens to the 0 address", async () => {
+      await footballPlayers.safeMint(await owner.getAddress());
+      await expect(
+        footballPlayers["safeTransferFrom(address,address,uint256)"] (owner, ethers.ZeroAddress, 0)
+      ).to.be.revertedWithCustomError(footballPlayers, "ERC721InvalidReceiver");
+    });
+  });
+    
   // Add more tests for other functionalities of your contract.
 });
