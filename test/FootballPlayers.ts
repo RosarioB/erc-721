@@ -44,7 +44,7 @@ describe("FootballPlayers", () => {
         expect(await footballPlayers.ownerOf(1)).to.equal(await owner.getAddress());
     });
 
-    it("Should return the righte tokenURI", async () => {
+    it("Should return the right tokenURI", async () => {
       const BASE_URI: String = "ipfs://bafkreidyyvdpuxvpc6e3ws6tzqbkm6vof4newzwqa4kg2tnygoqsfieclu"
       await footballPlayers.safeMint(owner.address);
       expect(await footballPlayers.tokenURI(0)).to.equal(BASE_URI + "0");
