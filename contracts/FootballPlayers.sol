@@ -13,6 +13,10 @@ contract FootballPlayers is ERC721, Ownable {
         Ownable(msg.sender)
     {}
 
+    function _baseURI() internal pure override returns (string memory) {
+        return "ipfs://bafkreidyyvdpuxvpc6e3ws6tzqbkm6vof4newzwqa4kg2tnygoqsfieclu";
+    }
+
     function safeMint(address to) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
