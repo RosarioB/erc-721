@@ -23,7 +23,8 @@ contract FootballPlayers is ERC721, Ownable {
         _safeMint(to, tokenId);
     }
 
-    function tokenURI(uint256 _tokenId) public pure override returns (string memory) {
-        return string(abi.encodePacked(_baseURI(), Strings.toString(_tokenId), ".json"));
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        _requireOwned(tokenId);
+        return string(abi.encodePacked(_baseURI(), Strings.toString(tokenId), ".json"));
     }
 }
