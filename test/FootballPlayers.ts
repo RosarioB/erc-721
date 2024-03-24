@@ -45,9 +45,9 @@ describe("FootballPlayers", () => {
     });
 
     it("Should return the right tokenURI", async () => {
-      const BASE_URI: String = "ipfs://bafkreidyyvdpuxvpc6e3ws6tzqbkm6vof4newzwqa4kg2tnygoqsfieclu"
+      const BASE_URI: String = "ipfs://bafybeiatjpa32sftvqpbohuo7gvjp3wvcvzxajk4erbktythfcr2ob4goe/"
       await footballPlayers.safeMint(owner.address);
-      expect(await footballPlayers.tokenURI(0)).to.equal(BASE_URI + "0");
+      expect(await footballPlayers.tokenURI(0)).to.equal(BASE_URI + "0.json");
     });
   });
 
