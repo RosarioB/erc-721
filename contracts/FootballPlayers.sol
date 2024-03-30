@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract FootballPlayers is ERC721, Ownable {
+    uint16 private TOKEN_CAP = 4;
     uint256 private _nextTokenId;
 
     constructor()
@@ -15,10 +16,11 @@ contract FootballPlayers is ERC721, Ownable {
     {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://bafybeiatjpa32sftvqpbohuo7gvjp3wvcvzxajk4erbktythfcr2ob4goe/";
+        return "ipfs://bafybeiag6fokmiz6xmjodjyeuejtgrbyf2moirydovrew2bhmxjrehernq/";
     }
 
     function safeMint(address to) public onlyOwner {
+        require (_nextTokenId <= TOKEN_CAP, "Token cap exceeded");
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
     }

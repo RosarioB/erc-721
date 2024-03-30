@@ -44,8 +44,16 @@ describe("FootballPlayers", () => {
         expect(await footballPlayers.ownerOf(1)).to.equal(await owner.getAddress());
     });
 
+    it("Should not mint more than TOKEN_CAP tokens", async () => {
+      const TOKEN_CAP = 4;
+      for (let i = 0; i <= TOKEN_CAP; i++) {
+        await footballPlayers.safeMint(owner.address);
+      }
+      await expect(footballPlayers.safeMint(owner.address)).to.be.revertedWith("Token cap exceeded");
+    });
+
     it("Should return the right tokenURI", async () => {
-      const BASE_URI: String = "ipfs://bafybeiatjpa32sftvqpbohuo7gvjp3wvcvzxajk4erbktythfcr2ob4goe/"
+      const BASE_URI: String = "ipfs://bafybeiag6fokmiz6xmjodjyeuejtgrbyf2moirydovrew2bhmxjrehernq/"
       await footballPlayers.safeMint(owner.address);
       expect(await footballPlayers.tokenURI(0)).to.equal(BASE_URI + "0.json");
     });
